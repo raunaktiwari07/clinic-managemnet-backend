@@ -1,0 +1,42 @@
+{
+  "name": "app_vibe_backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.3.1",
+    "express": "^5.1.0",
+    "express-validator": "^7.3.1",
+    "joi": "^18.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^9.2.3",
+    "nodemailer": "^7.0.11",
+    "pdfkit": "^0.17.2",
+    "resend": "^6.7.0"
+  },
+  "devDependencies": {
+    "@prisma/client": "^5.22.0",
+    "@types/node": "^24.10.1",
+    "nodemon": "^3.1.14",
+    "prisma": "^5.22.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "_moduleAliases": {
+    "@models": "src/models",
+    "@apis": "src/apis",
+    "@config": "src/config",
+    "@middlewares": "src/middlewares",
+    "@utils": "src/utils"
+  }
+}
