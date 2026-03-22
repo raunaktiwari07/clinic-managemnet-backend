@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs')
-const { generateToken } = require('/Users/raunaktiwari07/workspace/clinic-management-backend/src/utils/tokenUtils.js')
-const { sendOTPEmail } = require('/Users/raunaktiwari07/workspace/clinic-management-backend/src/services/emailServices.js')
-const { generateOTP } = require('/Users/raunaktiwari07/workspace/clinic-management-backend/src/utils/otpServices.js')
+const { generateToken } = require('../../utils/tokenUtils')
+const { sendOTPEmail } = require('../../services/emailServices')
+const { generateOTP } = require('../../utils/otpServices')
 const{user}= require('../../models')
 
 //const { sendOTPPhone } = require('../services/smsServices')
