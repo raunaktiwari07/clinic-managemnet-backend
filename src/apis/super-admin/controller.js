@@ -5,8 +5,8 @@ exports.loginSuperAdmin = async ({ body }) => {
   const { email, password } = body;
 
   if (
-    email !== process.env.SUPER_ADMIN_EMAIL ||
-    password !== process.env.SUPER_ADMIN_PASSWORD
+    email !== "superadmin@appvibe.com" ||
+    password !== "appVibe@123"
   ) {
     return {
       statusCode: 401,
