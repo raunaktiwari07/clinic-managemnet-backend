@@ -28,4 +28,4 @@ fs.readdirSync(apisPath).forEach((folder) => {
   }
 })
 
-module.exports = router
+module.exports = router;
