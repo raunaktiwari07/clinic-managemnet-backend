@@ -34,6 +34,7 @@ router.post(
 router.get(
   "/all-admins", 
   protect, 
+  authorize("SUPER_ADMIN"),
   responseHandler(getAllAdmins),
 );
 

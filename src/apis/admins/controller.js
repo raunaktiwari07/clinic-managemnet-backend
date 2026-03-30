@@ -132,8 +132,12 @@ exports.getMe = async ({ user }) => {
 // =============================================
 // GET ALL ADMINS
 // =============================================
+console.log("STEP 1: getAllAdmins function called");
 exports.getAllAdmins = async ({ user, query }) => {
-  if (user.role !== "SUPER_ADMIN") {
+  const allowedRoles = ["SUPER_ADMIN"];
+
+
+if (!allowedRoles.includes(user.role)) { 
     return {
       statusCode: 403,
       success: false,
@@ -141,8 +145,9 @@ exports.getAllAdmins = async ({ user, query }) => {
       message: "Only Super Admin can view admins",
     };
   }
-
+console.log("STEP 1.5: role passed");
   const { status = "active", page = 1, limit = 10 } = query;
+  console.log("STEP 2: before DB call");
 
   const pageNumber = Math.max(1, Number(page));
   const pageSize = Math.min(50, Number(limit));
@@ -153,23 +158,27 @@ exports.getAllAdmins = async ({ user, query }) => {
   if (status === "inactive") userFilter.isActive = false;
 
   const admins = await Admin.find()
-    .select("clinicName location subsValidity createdAt user")
+    .select("_id clinicName location subsValidity createdAt user ")
     .populate({
       path: "user",
       match: userFilter,
-      select: "name email phone role isActive createdAt",
+      select: "_id name email phone role isActive createdAt",
     })
     .skip(skip)
     .limit(pageSize)
     .sort({ createdAt: -1 })
     .lean();
-
+console.log("STEP 3: after DB call", admins.length);
   const filtered = admins.filter((a) => a.user);
 
   const total = await Admin.countDocuments();
+  //console.log("STEP 2: filtered length =", filtered);
 
-  const data = filtered.map((a) => ({
-    id: a.user.id,
+const data = filtered.map((a) => {
+  //console.log("STEP 3: inside map", a._id); 
+
+  return {
+    id: a._id.toString(),
     name: a.user.name,
     email: a.user.email,
     phone: a.user.phone,
@@ -177,12 +186,12 @@ exports.getAllAdmins = async ({ user, query }) => {
     isActive: a.user.isActive,
     createdAt: a.createdAt,
     clinic: {
-      id: a.id,
       clinicName: a.clinicName,
       location: a.location,
       subsValidity: a.subsValidity,
     },
-  }));
+  };
+});
 
   return {
     statusCode: 200,
@@ -196,9 +205,9 @@ exports.getAllAdmins = async ({ user, query }) => {
       totalPages: Math.ceil(total / pageSize),
       status,
     },
-    data,
-  };
-};
+       data
+  
+  ,};};
 
 // =============================================
 // GET ADMIN BY ID

@@ -145,7 +145,7 @@ exports.getDoctorProfile = async ({ user, params }) => {
 };
 //get all doctors(with pagination)
 exports.getAllDoctors = async ({ user, query }) => {
-  const allowedRoles = ["ADMIN", "RECEPTIONIST", "PATIENT"];
+  const allowedRoles = ["ADMIN", "RECEPTIONIST", "PATIENT","SUPER-ADMIN"];
   if (!allowedRoles.includes(user.role)) {
     return {
       statusCode: 403,
