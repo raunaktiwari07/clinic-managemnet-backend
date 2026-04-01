@@ -30,6 +30,9 @@ exports.createDoctor = async ({ user, body }) => {
     consultationFee,
     availabilityDays,
     documentUrl,
+   workingHours,
+   slotDuration,
+
   } = body;
 
   // Check email exists
@@ -93,6 +96,8 @@ exports.createDoctor = async ({ user, body }) => {
     consultationFee: consultationFee ? Number(consultationFee) : null,
     availabilityDays,
     documentUrl,
+     workingHours,
+   slotDuration,
   });
 
   if (!doctor) {
@@ -174,7 +179,7 @@ exports.getAllDoctors = async ({ user, query }) => {
       .skip((page - 1) * limit)
       .limit(limit)
       .select(
-        "qualification experience department shift consultationFee availabilityDays",
+        "qualification experience department shift consultationFee availabilityDays  workingHours slotDuration",
       )
       .populate({
         path: "user",
@@ -243,6 +248,8 @@ exports.updateDoctor = async ({ user, params, body }) => {
     consultationFee,
     availabilityDays,
     documentUrl,
+     workingHours,
+   slotDuration,
   } = body;
  
   // Doctor can edit limited fields
@@ -307,6 +314,8 @@ exports.updateDoctor = async ({ user, params, body }) => {
       consultationFee,
       availabilityDays,
       documentUrl,
+       workingHours,
+   slotDuration,
     },
     { new: true, runValidators: true },
   );
@@ -472,7 +481,7 @@ exports.getisActiveDoctors = async ({ user, query }) => {
       .skip((page - 1) * limit)
       .limit(limit)
       .select(
-        "qualification experience department shift consultationFee availabilityDays",
+        "qualification experience department shift consultationFee availabilityDays  workingHours slotDuration",
       )
       .populate({
         path: "user",
@@ -531,7 +540,7 @@ exports.getinActiveDoctors = async ({ user, query }) => {
       .skip((page - 1) * limit)
       .limit(limit)
       .select(
-        "qualification experience department shift consultationFee availabilityDays",
+        "qualification experience department shift consultationFee availabilityDays  workingHours   slotDuration",
       )
       .populate({
         path: "user",

@@ -123,7 +123,17 @@ exports.createDoctorSchema = Joi.object({
 
       uploadedAt: Joi.date()
     })
-  )
+  ),
+  workingHours: Joi.object({
+  start: Joi.string()
+    .pattern(/^\d{2}:\d{2}$/)
+    .required(),
+  end: Joi.string()
+    .pattern(/^\d{2}:\d{2}$/)
+    .required(),
+}).required(),
+
+slotDuration: Joi.number().min(5).max(120).default(30)
 
 }).strict();
 
@@ -217,7 +227,17 @@ exports.updateDoctorSchema = Joi.object({
 
       uploadedAt: Joi.date()
     })
-  )
+  ),
+  workingHours: Joi.object({
+  start: Joi.string()
+    .pattern(/^\d{2}:\d{2}$/)
+    .required(),
+  end: Joi.string()
+    .pattern(/^\d{2}:\d{2}$/)
+    .required(),
+}).required(),
+
+slotDuration: Joi.number().min(5).max(120).default(30)
 
 }).min(1).strict();
 

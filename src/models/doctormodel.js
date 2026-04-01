@@ -83,8 +83,26 @@ aadhaar: {
 
     // Better structured than plain string
     availabilityDays: [{
-      type: String
+      type: String,
+        enum: ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
     }],
+
+    workingHours: {
+  start: {
+    type: String, // "10:00"
+    required: true
+  },
+  end: {
+    type: String, // "6:00"
+    required: true
+  }
+},
+
+slotDuration: {
+  type: Number, 
+  default: 30 
+},
+
 
  documentUrl: [{
   name: String,
