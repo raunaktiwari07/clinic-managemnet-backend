@@ -26,6 +26,7 @@ const protect = async (req, res, next) => {
     // ==============================
     // HANDLE SUPER ADMIN (.env based)
     // ==============================
+    console.log(decoded)
     if (
       decoded.role === "SUPER_ADMIN" &&
       decoded.email === process.env.SUPER_ADMIN_EMAIL
@@ -39,11 +40,11 @@ const protect = async (req, res, next) => {
       };
       return next();
     }
-
+console.log(decoded.id)
     // ==============================
     // VALIDATE OBJECT ID
     // ==============================
-    if (!mongoose.Types.ObjectId.isValid(decoded.id)) {
+    if (!mongoose.Types.ObjectId.isValid(decoded._id)) {
       return res.status(401).json({
         success: false,
         error: "Invalid user ID",
@@ -53,7 +54,8 @@ const protect = async (req, res, next) => {
     // ==============================
     // FIND USER (Mongoose way)
     // ==============================
-    const userInfo = await User.findById(decoded.id)
+
+    const userInfo = await User.findById(decoded._id)
       .select("email name role isActive Admin")
       // .populate({
       //   path: "admin",
